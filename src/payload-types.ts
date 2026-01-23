@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     categories: Category;
     users: User;
+    events: Event;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -94,6 +95,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -193,14 +195,33 @@ export interface Page {
             /**
              * Choose how the link should be rendered.
              */
-            appearance?: ('default' | 'outline') | null;
+            appearance?:
+              | ('inline' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'navlink')
+              | null;
           };
           id?: string | null;
         }[]
       | null;
     media?: (string | null) | Media;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
+  layout: (
+    | CallToActionBlock
+    | ContentBlock
+    | MediaBlock
+    | ArchiveBlock
+    | FormBlock
+    | HeroImageTitleBlock
+    | MarqueeImagesBlock
+    | CenteredTextBlock
+    | ServicesHoverListBlock
+    | EventsListingBlock
+    | EventsUpcomingBlock
+    | ImpactHeroBlock
+    | PostsCarousel
+    | AboutSplitBlock
+    | MissionTextBlock
+    | TreatmentsAccordionBlock
+  )[];
   meta?: {
     title?: string | null;
     /**
@@ -526,7 +547,7 @@ export interface ContentBlock {
           /**
            * Choose how the link should be rendered.
            */
-          appearance?: ('default' | 'outline') | null;
+          appearance?: ('inline' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'navlink') | null;
         };
         id?: string | null;
       }[]
@@ -781,6 +802,244 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroImageTitleBlock".
+ */
+export interface HeroImageTitleBlock {
+  backgroundImage: string | Media;
+  title: string;
+  title2: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroImageTitle';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeImagesBlock".
+ */
+export interface MarqueeImagesBlock {
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'marqueeImages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CenteredTextBlock".
+ */
+export interface CenteredTextBlock {
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'centeredText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesHoverListBlock".
+ */
+export interface ServicesHoverListBlock {
+  title: string;
+  intro?: string | null;
+  /**
+   * Keeps the section stable while hovering
+   */
+  minHeight?: number | null;
+  services: {
+    name: string;
+    eyebrow?: string | null;
+    description?: string | null;
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('inline' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'navlink') | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesHoverList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsListingBlock".
+ */
+export interface EventsListingBlock {
+  heroImage: string | Media;
+  title: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventsListing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsUpcomingBlock".
+ */
+export interface EventsUpcomingBlock {
+  title: string;
+  description: string;
+  viewAll: {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('inline' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'navlink') | null;
+    };
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventsUpcoming';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactHeroBlock".
+ */
+export interface ImpactHeroBlock {
+  backgroundImage: string | Media;
+  title: string;
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'impactHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostsCarousel".
+ */
+export interface PostsCarousel {
+  titleLeft: string;
+  titleRight: string;
+  limit?: number | null;
+  viewAll?:
+    | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('inline' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'navlink') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'postsCarousel';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSplitBlock".
+ */
+export interface AboutSplitBlock {
+  image: string | Media;
+  title: string;
+  /**
+   * Use line breaks to create separate paragraphs.
+   */
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'aboutSplit';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MissionTextBlock".
+ */
+export interface MissionTextBlock {
+  text: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'missionText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TreatmentsAccordionBlock".
+ */
+export interface TreatmentsAccordionBlock {
+  image: string | Media;
+  title: string;
+  items: {
+    label: string;
+    text: string;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'treatmentsAccordion';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  date: string;
+  /**
+   * Displayed as “City, Country” on the card bottom-right.
+   */
+  location: string;
+  link: {
+    type: 'reference' | 'custom';
+    reference?: {
+      relationTo: 'pages';
+      value: string | Page;
+    } | null;
+    url?: string | null;
+    label?: string | null;
+    newTab?: boolean | null;
+  };
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -990,6 +1249,10 @@ export interface PayloadLockedDocument {
         value: string | User;
       } | null)
     | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -1087,6 +1350,17 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+        heroImageTitle?: T | HeroImageTitleBlockSelect<T>;
+        marqueeImages?: T | MarqueeImagesBlockSelect<T>;
+        centeredText?: T | CenteredTextBlockSelect<T>;
+        servicesHoverList?: T | ServicesHoverListBlockSelect<T>;
+        eventsListing?: T | EventsListingBlockSelect<T>;
+        eventsUpcoming?: T | EventsUpcomingBlockSelect<T>;
+        impactHero?: T | ImpactHeroBlockSelect<T>;
+        postsCarousel?: T | PostsCarouselSelect<T>;
+        aboutSplit?: T | AboutSplitBlockSelect<T>;
+        missionText?: T | MissionTextBlockSelect<T>;
+        treatmentsAccordion?: T | TreatmentsAccordionBlockSelect<T>;
       };
   meta?:
     | T
@@ -1183,6 +1457,178 @@ export interface FormBlockSelect<T extends boolean = true> {
   form?: T;
   enableIntro?: T;
   introContent?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroImageTitleBlock_select".
+ */
+export interface HeroImageTitleBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
+  title?: T;
+  title2?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeImagesBlock_select".
+ */
+export interface MarqueeImagesBlockSelect<T extends boolean = true> {
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CenteredTextBlock_select".
+ */
+export interface CenteredTextBlockSelect<T extends boolean = true> {
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesHoverListBlock_select".
+ */
+export interface ServicesHoverListBlockSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  minHeight?: T;
+  services?:
+    | T
+    | {
+        name?: T;
+        eyebrow?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsListingBlock_select".
+ */
+export interface EventsListingBlockSelect<T extends boolean = true> {
+  heroImage?: T;
+  title?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "EventsUpcomingBlock_select".
+ */
+export interface EventsUpcomingBlockSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  viewAll?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImpactHeroBlock_select".
+ */
+export interface ImpactHeroBlockSelect<T extends boolean = true> {
+  backgroundImage?: T;
+  title?: T;
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PostsCarousel_select".
+ */
+export interface PostsCarouselSelect<T extends boolean = true> {
+  titleLeft?: T;
+  titleRight?: T;
+  limit?: T;
+  viewAll?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AboutSplitBlock_select".
+ */
+export interface AboutSplitBlockSelect<T extends boolean = true> {
+  image?: T;
+  title?: T;
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MissionTextBlock_select".
+ */
+export interface MissionTextBlockSelect<T extends boolean = true> {
+  text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TreatmentsAccordionBlock_select".
+ */
+export interface TreatmentsAccordionBlockSelect<T extends boolean = true> {
+  image?: T;
+  title?: T;
+  items?:
+    | T
+    | {
+        label?: T;
+        text?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -1353,6 +1799,28 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  date?: T;
+  location?: T;
+  link?:
+    | T
+    | {
+        type?: T;
+        reference?: T;
+        url?: T;
+        label?: T;
+        newTab?: T;
+      };
+  generateSlug?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1635,8 +2103,99 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: string;
+  logo: string | Media;
+  forceBlackOn?:
+    | {
+        path: string;
+        id?: string | null;
+      }[]
+    | null;
   navItems?:
     | {
+        link: {
+          type?: ('reference' | 'custom') | null;
+          newTab?: boolean | null;
+          reference?:
+            | ({
+                relationTo: 'pages';
+                value: string | Page;
+              } | null)
+            | ({
+                relationTo: 'posts';
+                value: string | Post;
+              } | null);
+          url?: string | null;
+          label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('inline' | 'default' | 'outline' | 'secondary' | 'ghost' | 'link' | 'brand' | 'navlink') | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  cta: {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('brand' | 'outline' | 'default' | 'link' | 'ghost' | 'secondary' | 'navlink' | 'inline') | null;
+    };
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  logo: string | Media;
+  tagline?: string | null;
+  description?: string | null;
+  columns?:
+    | {
+        title: string;
+        links?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  social?:
+    | {
+        icon: string | Media;
         link: {
           type?: ('reference' | 'custom') | null;
           newTab?: boolean | null;
@@ -1655,16 +2214,8 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer".
- */
-export interface Footer {
-  id: string;
-  navItems?:
+  bottomText?: string | null;
+  bottomLinks?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1692,6 +2243,13 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  logo?: T;
+  forceBlackOn?:
+    | T
+    | {
+        path?: T;
+        id?: T;
+      };
   navItems?:
     | T
     | {
@@ -1703,8 +2261,23 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              appearance?: T;
             };
         id?: T;
+      };
+  cta?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;
@@ -1715,7 +2288,46 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  logo?: T;
+  tagline?: T;
+  description?: T;
+  columns?:
+    | T
+    | {
+        title?: T;
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  social?:
+    | T
+    | {
+        icon?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+            };
+        id?: T;
+      };
+  bottomText?: T;
+  bottomLinks?:
     | T
     | {
         link?:

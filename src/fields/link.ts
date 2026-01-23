@@ -2,18 +2,51 @@ import type { Field, GroupField } from 'payload'
 
 import deepMerge from '@/utilities/deepMerge'
 
-export type LinkAppearances = 'default' | 'outline'
+export type LinkAppearances =
+  | 'inline'
+  | 'default'
+  | 'outline'
+  | 'secondary'
+  | 'ghost'
+  | 'link'
+  | 'brand'
+  | 'navlink'
 
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
+  inline: {
+    label: 'Inline (no button)',
+    value: 'inline',
+  },
   default: {
-    label: 'Default',
+    label: 'Default Button',
     value: 'default',
   },
   outline: {
     label: 'Outline',
     value: 'outline',
   },
+  secondary: {
+    label: 'Secondary',
+    value: 'secondary',
+  },
+  ghost: {
+    label: 'Ghost',
+    value: 'ghost',
+  },
+  link: {
+    label: 'Link Style',
+    value: 'link',
+  },
+  brand: {
+    label: 'Brand (Green)',
+    value: 'brand',
+  },
+  navlink: {
+    label: 'Nav Link (White)',
+    value: 'navlink',
+  },
 }
+
 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false
@@ -117,12 +150,13 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
     linkResult.fields = [...linkResult.fields, ...linkTypes]
   }
 
-  if (appearances !== false) {
-    let appearanceOptionsToUse = [appearanceOptions.default, appearanceOptions.outline]
+if (appearances !== false) {
+  let appearanceOptionsToUse = Object.values(appearanceOptions)
 
-    if (appearances) {
-      appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
-    }
+  if (Array.isArray(appearances)) {
+    appearanceOptionsToUse = appearances.map((appearance) => appearanceOptions[appearance])
+  }
+
 
     linkResult.fields.push({
       name: 'appearance',
@@ -130,7 +164,7 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       admin: {
         description: 'Choose how the link should be rendered.',
       },
-      defaultValue: 'default',
+defaultValue: 'inline',
       options: appearanceOptionsToUse,
     })
   }

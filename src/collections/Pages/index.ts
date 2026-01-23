@@ -20,6 +20,17 @@ import {
   OverviewField,
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
+import { HeroImageTitleBlock } from '@/blocks/HeroImageTitleBlock/config'
+import { MarqueeImagesBlock } from '@/blocks/MarqueeImagesBlock/config'
+import { CenteredText } from '@/blocks/CenteredText/config'
+import { ServicesHoverList } from '@/blocks/ServicesHoverList/config'
+import EventsUpcoming from '@/blocks/EventsUpcoming/config'
+import EventsListing from '@/blocks/EventsListing/config'
+import ImpactHero from '@/blocks/ImpactHero/config'
+import { PostsCarousel } from '@/blocks/PostsCarousel/config'
+import { AboutSplit } from '@/blocks/AboutSplit/config'
+import { MissionText } from '@/blocks/MissionText/config'
+import { TreatmentsAccordion } from '@/blocks/TreatmentsAccordion/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -72,7 +83,24 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                HeroImageTitleBlock,
+                MarqueeImagesBlock,
+                CenteredText,
+                ServicesHoverList,
+                EventsListing,
+                EventsUpcoming,
+                ImpactHero,
+                PostsCarousel,
+                AboutSplit,
+                MissionText,
+                TreatmentsAccordion,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
