@@ -221,6 +221,8 @@ export interface Page {
     | AboutSplitBlock
     | MissionTextBlock
     | TreatmentsAccordionBlock
+    | ContactSplitBlock
+    | NewsListingBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1010,6 +1012,74 @@ export interface TreatmentsAccordionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactSplitBlock".
+ */
+export interface ContactSplitBlock {
+  title?: string | null;
+  intro?: string | null;
+  image?: (string | null) | Media;
+  form: string | Form;
+  enableIntro?: boolean | null;
+  introContent?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  phones?:
+    | {
+        phone: string;
+        id?: string | null;
+      }[]
+    | null;
+  email?: string | null;
+  social: {
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'pages';
+            value: string | Page;
+          } | null)
+        | ({
+            relationTo: 'posts';
+            value: string | Post;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: 'inline' | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactSplitBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsListingBlock".
+ */
+export interface NewsListingBlock {
+  title: string;
+  text?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'newsListing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -1361,6 +1431,8 @@ export interface PagesSelect<T extends boolean = true> {
         aboutSplit?: T | AboutSplitBlockSelect<T>;
         missionText?: T | MissionTextBlockSelect<T>;
         treatmentsAccordion?: T | TreatmentsAccordionBlockSelect<T>;
+        contactSplitBlock?: T | ContactSplitBlockSelect<T>;
+        newsListing?: T | NewsListingBlockSelect<T>;
       };
   meta?:
     | T
@@ -1629,6 +1701,51 @@ export interface TreatmentsAccordionBlockSelect<T extends boolean = true> {
         text?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactSplitBlock_select".
+ */
+export interface ContactSplitBlockSelect<T extends boolean = true> {
+  title?: T;
+  intro?: T;
+  image?: T;
+  form?: T;
+  enableIntro?: T;
+  introContent?: T;
+  phones?:
+    | T
+    | {
+        phone?: T;
+        id?: T;
+      };
+  email?: T;
+  social?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "NewsListingBlock_select".
+ */
+export interface NewsListingBlockSelect<T extends boolean = true> {
+  title?: T;
+  text?: T;
   id?: T;
   blockName?: T;
 }

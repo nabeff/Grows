@@ -2,7 +2,6 @@ import type { TextField } from '@payloadcms/plugin-form-builder/types'
 import type { FieldErrorsImpl, FieldValues, UseFormRegister } from 'react-hook-form'
 
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import React from 'react'
 
 import { Error } from '../Error'
@@ -14,18 +13,21 @@ export const Text: React.FC<
     register: UseFormRegister<FieldValues>
   }
 > = ({ name, defaultValue, errors, label, register, required, width }) => {
+  const placeholder = `${label ?? ''}${required ? ' *' : ''}`.trim()
+
   return (
     <Width width={width}>
-      <Label htmlFor={name}>
-        {label}
+      <Input
+        defaultValue={defaultValue}
+        id={name}
+        type="text"
+        placeholder={placeholder}
+        aria-label={label || name}
+        aria-required={!!required}
+        className="!bg-white !text-black shadow-sm"
+        {...register(name, { required })}
+      />
 
-        {required && (
-          <span className="required">
-            * <span className="sr-only">(required)</span>
-          </span>
-        )}
-      </Label>
-      <Input defaultValue={defaultValue} id={name} type="text" {...register(name, { required })} />
       {errors[name] && <Error name={name} />}
     </Width>
   )

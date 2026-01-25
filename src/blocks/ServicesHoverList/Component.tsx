@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react'
 import type { ServicesHoverListBlock as ServicesHoverListBlockProps } from '@/payload-types'
 import { cn } from '@/utilities/ui'
+import { TextReveal } from '@/components/TextReveal'
 
 export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
   title,
@@ -21,11 +22,16 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
         {/* Top title + intro */}
         <div className="max-w-3xl">
           {title && (
-            <h2 className="font-heading text-4xl lg:text-6xl leading-tight text-black font-bold">
-              {title}
+            <h2 className="font-heading text-4xl lg:text-8xl leading-tight text-black font-bold">
+              <TextReveal as="span" text={title} />
             </h2>
           )}
-          {intro && <p className="mt-6 text-base lg:text-lg text-black">{intro}</p>}
+
+          {intro && (
+            <p className="mt-6 text-base lg:text-lg text-black">
+              <TextReveal as="span" text={intro} />
+            </p>
+          )}
         </div>
 
         {/* List */}
@@ -39,19 +45,17 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
                     className={cn(
                       'w-full text-left text-black',
                       'font-heading font-bold text-4xl md:text-5xl lg:text-5xl max-w-2xl leading-[1.05]',
-                      // subtle title response to hover
                       'transition-opacity duration-300',
                       'group-hover:opacity-25',
                     )}
                   >
-                    {item?.name}
+                    <TextReveal as="span" text={item?.name ?? ''} />
                   </div>
 
                   {/* Overlay panel (hover-only) */}
                   <div
                     className={cn(
                       'absolute inset-0 pointer-events-none',
-                      // we keep it "there" but invisible until hover
                       'opacity-0 group-hover:opacity-100',
                       'transition-opacity duration-200',
                     )}
@@ -61,10 +65,8 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
                       <div
                         className={cn(
                           'absolute inset-0 bg-[#BFF1E5]',
-                          // wipe animation
                           'origin-left scale-x-0 group-hover:scale-x-100',
                           'transition-transform duration-500',
-                          // nicer easing
                           'ease-[cubic-bezier(0.22,1,0.36,1)]',
                         )}
                       />
@@ -74,7 +76,6 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
                     <div
                       className={cn(
                         'relative h-full w-full flex items-center px-6 md:px-10',
-                        // slide/fade content in
                         'translate-y-2 opacity-0',
                         'group-hover:translate-y-0 group-hover:opacity-100',
                         'transition-all duration-400',
@@ -86,14 +87,13 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
                           <p
                             className={cn(
                               'font-heading font-semibold text-sm text-black/80',
-                              // micro pop on hover
                               'translate-y-1 opacity-0',
                               'group-hover:translate-y-0 group-hover:opacity-100',
                               'transition-all duration-500 delay-75',
                               'ease-[cubic-bezier(0.22,1,0.36,1)]',
                             )}
                           >
-                            {item.eyebrow}
+                            <TextReveal as="span" text={item.eyebrow} />
                           </p>
                         )}
 
@@ -107,7 +107,7 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
                               'ease-[cubic-bezier(0.22,1,0.36,1)]',
                             )}
                           >
-                            {item.description}
+                            <TextReveal as="span" text={item.description} />
                           </p>
                         )}
                       </div>

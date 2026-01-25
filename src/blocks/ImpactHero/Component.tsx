@@ -4,6 +4,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Media } from '@/components/Media'
 import type { ImpactHeroBlock as Props, Media as MediaType } from '@/payload-types'
+import { TextReveal } from '@/components/TextReveal'
 
 export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text }) => {
   const bg = backgroundImage as MediaType | null
@@ -23,13 +24,11 @@ export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text 
       const rect = sectionEl.getBoundingClientRect()
       const vh = window.innerHeight || 0
 
-      // progress: 0 when section top hits bottom of viewport, 1 when section bottom hits top of viewport
       const total = rect.height + vh
       const progressed = (vh - rect.top) / (total || 1)
       const clamped = Math.max(0, Math.min(1, progressed))
 
-      // parallax amount in px (tweak this number if you want stronger/weaker effect)
-      const offset = (clamped - 0.5) * 260 // -40px .. +40px
+      const offset = (clamped - 0.5) * 900
 
       imgWrapEl.style.transform = `translate3d(0, ${offset}px, 0) scale(1.08)`
     }
@@ -39,7 +38,6 @@ export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text 
       raf = window.requestAnimationFrame(update)
     }
 
-    // first paint
     onScrollOrResize()
 
     window.addEventListener('scroll', onScrollOrResize, { passive: true })
@@ -64,14 +62,16 @@ export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text 
           {bg ? <Media resource={bg} fill imgClassName="object-cover" /> : null}
         </div>
 
-        {/* dark overlay */}
+        {/* overlay */}
         <div className="absolute inset-0 bg-black/40" />
 
         {/* content */}
         <div className="relative container mx-auto flex min-h-[420px] md:min-h-[520px] lg:min-h-[620px] items-center justify-center px-4">
-          <div className="text-center text-white max-w-5xl">
+          <div className="text-center text-white max-w-5xl w-full">
             {text ? (
-              <h2 className="text-3xl md:text-3xl lg:text-6xl font-bold leading-tight">{text}</h2>
+              <h2 className="text-3xl md:text-3xl lg:text-6xl font-bold leading-tight">
+                <TextReveal as="span" text={text} />
+              </h2>
             ) : null}
           </div>
         </div>

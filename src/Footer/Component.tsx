@@ -1,3 +1,4 @@
+// src/Footer/Component.tsx
 import React from 'react'
 import Link from 'next/link'
 
@@ -40,24 +41,34 @@ export async function Footer() {
               </p>
             ) : null}
 
+            {/* SOCIAL (icon only + clickable) */}
             {social.length ? (
               <div className="mt-10 flex items-center gap-4">
                 {social.map((item, i) => {
                   const icon = (item.icon as MediaType) || null
 
+                  // Payload link field -> url/newTab/label
+                  const href = (item.link as any)?.url as string | undefined
+                  const newTab = Boolean((item.link as any)?.newTab)
+                  const label = ((item.link as any)?.label as string | undefined) || 'Social'
+
+                  if (!href) return null
+
                   return (
-                    <CMSLink
+                    <a
                       key={i}
-                      {...(item.link as any)}
-                      className="inline-flex h-14 w-14 items-center justify-center rounded-xl transition hover:bg-black/5"
-                      aria-label="Social"
+                      href={href}
+                      aria-label={label}
+                      target={newTab ? '_blank' : undefined}
+                      rel={newTab ? 'noopener noreferrer' : undefined}
+                      className="inline-flex h-16 w-16 items-center justify-center rounded-full p-2 transition hover:bg-[#E9FBF5]"
                     >
                       {icon ? (
                         <span className="pointer-events-none relative h-8 w-8">
                           <Media resource={icon} imgClassName="h-full w-full object-contain" />
                         </span>
                       ) : null}
-                    </CMSLink>
+                    </a>
                   )
                 })}
               </div>

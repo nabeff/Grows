@@ -4,6 +4,7 @@
 import React, { useMemo, useState } from 'react'
 import { Media } from '@/components/Media'
 import type { Media as MediaType, TreatmentsAccordionBlock as Props } from '@/payload-types'
+import { TextReveal } from '@/components/TextReveal'
 
 export const TreatmentsAccordionBlock: React.FC<Props> = ({ image, title, items }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0)
@@ -14,15 +15,12 @@ export const TreatmentsAccordionBlock: React.FC<Props> = ({ image, title, items 
   return (
     <section className="container py-12 lg:py-16">
       <div className="grid gap-10 lg:grid-cols-2 lg:items-stretch">
-        {/* LEFT: Image */}
-        <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
-          {bg ? <Media resource={bg} fill imgClassName="object-cover" /> : null}
-        </div>
-
         {/* RIGHT: Title + Accordion */}
         <div className="flex flex-col justify-between text-black">
           {title ? (
-            <h2 className="mb-10 text-2xl md:text-3xl lg:text-6xl font-bold ">{title}</h2>
+            <h2 className="mb-10 text-4xl md:text-5xl lg:text-6xl font-bold">
+              <TextReveal as="span" text={title} />
+            </h2>
           ) : null}
 
           <div className="w-full">
@@ -41,7 +39,9 @@ export const TreatmentsAccordionBlock: React.FC<Props> = ({ image, title, items 
                     onClick={() => setOpenIndex((prev) => (prev === idx ? null : idx))}
                     aria-expanded={isOpen}
                   >
-                    <span className="text-lg md:text-xl font-bold">{label}</span>
+                    <span className="text-lg md:text-xl font-bold">
+                      <TextReveal as="span" text={label} />
+                    </span>
 
                     <span className="flex h-8 w-8 items-center justify-center bg-[#18CB96] p-2 rounded-full">
                       <svg
@@ -77,13 +77,20 @@ export const TreatmentsAccordionBlock: React.FC<Props> = ({ image, title, items 
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="pb-6 text-base md:text-lg text-black/80">{text}</p>
+                      <p className="pb-6 text-base md:text-lg text-black/80">
+                        <TextReveal as="span" text={text} />
+                      </p>
                     </div>
                   </div>
                 </div>
               )
             })}
           </div>
+        </div>
+
+        {/* LEFT: Image */}
+        <div className="relative aspect-square w-full overflow-hidden rounded-2xl">
+          {bg ? <Media resource={bg} fill imgClassName="object-cover" /> : null}
         </div>
       </div>
     </section>

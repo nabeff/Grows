@@ -5,6 +5,7 @@ import config from '@/payload.config'
 import type { EventsListingBlock as Props, Event, Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { EventsListClient } from './EventsListClient'
+import { TextReveal } from '@/components/TextReveal'
 
 function getText(value: unknown): string {
   if (typeof value === 'string' || typeof value === 'number') return String(value)
@@ -60,7 +61,7 @@ export const EventsListingBlock = async (props: Props) => {
         <div className="relative container h-full flex items-end pb-10">
           <div className="w-full flex items-end justify-between gap-6">
             <h1 className="text-5xl md:text-8xl font-bold tracking-tight text-white">
-              {heroTitle}
+              <TextReveal as="span" text={heroTitle} />
             </h1>
           </div>
         </div>

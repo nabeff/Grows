@@ -1,3 +1,4 @@
+// RenderBlocks.tsx
 import React, { Fragment } from 'react'
 
 import type { Page } from '@/payload-types'
@@ -15,9 +16,11 @@ import EventsUpcomingBlock from './EventsUpcoming/Component'
 import EventsListingBlock from './EventsListing/Component'
 import ImpactHeroBlock from './ImpactHero/Component'
 import PostsCarouselBlock from './PostsCarousel/Component'
-import AboutSplitBlock from './AboutSplit/Component' // ✅ add
+import AboutSplitBlock from './AboutSplit/Component'
 import MissionTextBlock from './MissionText/Component'
 import TreatmentsAccordionBlock from './TreatmentsAccordion/Component'
+import { ContactSplitBlock } from './ContactSplitBlock/Component'
+import NewsListingBlock from './NewsListing/Component' // ✅ add
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -34,8 +37,10 @@ const blockComponents = {
   impactHero: ImpactHeroBlock,
   postsCarousel: PostsCarouselBlock,
   aboutSplit: AboutSplitBlock,
-    missionText: MissionTextBlock,
-treatmentsAccordion: TreatmentsAccordionBlock
+  missionText: MissionTextBlock,
+  treatmentsAccordion: TreatmentsAccordionBlock,
+  contactSplitBlock: ContactSplitBlock,
+  newsListing: NewsListingBlock, // ✅ add
 }
 
 export const RenderBlocks: React.FC<{

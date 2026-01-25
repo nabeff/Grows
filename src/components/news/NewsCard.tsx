@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import clsx from 'clsx'
 import { Media } from '@/components/Media'
 import type { Media as MediaType } from '@/payload-types'
+import { TextReveal } from '@/components/TextReveal'
 
 const BRAND = '#18CB96'
 
@@ -63,19 +64,29 @@ export const NewsCard: React.FC<Props> = ({
       <div className="relative z-10 flex h-full flex-col justify-end p-6 md:p-7">
         <div className="space-y-3">
           {category ? (
-            <p className="text-white/85 text-sm md:text-base font-medium">{category}</p>
+            <p className="text-white/85 text-sm md:text-base font-medium">
+              <TextReveal as="span" text={category} />
+            </p>
           ) : null}
 
-          <h3 className="text-white text-2xl md:text-4xl font-bold leading-tight">{title}</h3>
+          <h3 className="text-white text-3xl md:text-4xl font-bold leading-tight">
+            <TextReveal as="span" text={title} />
+          </h3>
         </div>
 
         <div className="mt-8 flex items-end justify-between gap-4">
-          {subtitle ? <p className="text-white/80 text-sm md:text-base">{subtitle}</p> : <span />}
+          {subtitle ? (
+            <p className="text-white/90 text-sm md:text-base">
+              <TextReveal as="span" text={subtitle} />
+            </p>
+          ) : (
+            <span />
+          )}
 
           {/* Arrow circle (visual; whole card clickable) */}
           <div
             aria-hidden
-            className="shrink-0 grid h-12 w-12 place-items-center rounded-full shadow-lg transition-transform duration-200 group-hover:scale-[1.06]"
+            className="shrink-0 grid h-12 w-12 place-items-center rounded-full shadow-lg transition-transform duration-200 group-hover:rotate-[-45deg] group-hover:scale-[1.2]"
             style={{ background: BRAND }}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden>

@@ -1,3 +1,4 @@
+// src/blocks/MarqueeImages/Component.tsx
 'use client'
 
 import React, { useEffect, useMemo, useRef } from 'react'
@@ -10,17 +11,25 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
   const trackRef = useRef<HTMLDivElement | null>(null)
   const sectionRef = useRef<HTMLElement | null>(null)
 
+  // marquee motion
   const xPos = useRef(0)
   const lastScrollY = useRef(0)
   const direction = useRef(1) // 1 = LTR, -1 = RTL
   const speedBoost = useRef(0)
 
+  // refs for parallax (move ONLY the image layer)
+  const parallaxRefs = useRef<Array<HTMLDivElement | null>>([])
+
   /* ===== SPEED TUNING ===== */
   const GAP_REM = 2
-  const BASE_DURATION = 22 // faster normal
-  const BOOST_DURATION = 12 // very fast on scroll
-  const BOOST_FORCE = 0.3 // doubled boost
+  const BASE_DURATION = 22
+  const BOOST_DURATION = 12
+  const BOOST_FORCE = 0.3
   const FRICTION = 0.88
+
+  /* ===== PARALLAX TUNING ===== */
+  const PARALLAX_PX = 40 // how much the image shifts inside the card
+  const PARALLAX_SCALE = 1.12 // scale up so it can move without showing empty edges
 
   const items = useMemo(() => {
     const list = (images || []).map((i) => i?.image).filter(Boolean) as MediaItem[]
@@ -37,6 +46,34 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
       return r.bottom > 0 && r.top < window.innerHeight
     }
 
+    // ✅ parallax: move the image INSIDE each card (not the whole row)
+    let rafParallax = 0
+    const updateParallax = () => {
+      rafParallax = 0
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return
+
+      const rect = sectionEl.getBoundingClientRect()
+      const vh = window.innerHeight || 0
+
+      const total = rect.height + vh
+      const progressed = (vh - rect.top) / (total || 1)
+      const clamped = Math.max(0, Math.min(1, progressed))
+
+      // -PARALLAX_PX/2 .. +PARALLAX_PX/2
+      const y = (clamped - 0.5) * PARALLAX_PX
+
+      const refs = parallaxRefs.current
+      for (let i = 0; i < refs.length; i++) {
+        const el = refs[i]
+        if (!el) continue
+
+        // tiny depth variation per card (optional but nice)
+        const depth = 1 + ((i % 6) - 3) * 0.03 // 0.91..1.09 approx
+        el.style.transform = `translate3d(0, ${y * depth}px, 0) scale(${PARALLAX_SCALE})`
+      }
+    }
+
     const onScroll = () => {
       if (!isInView()) return
 
@@ -45,18 +82,28 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
       lastScrollY.current = current
 
       if (delta > 0) {
-        // scroll down → faster LTR
         direction.current = 1
         speedBoost.current += BOOST_FORCE
       } else if (delta < 0) {
-        // scroll up → reverse
         direction.current = -1
         speedBoost.current += BOOST_FORCE
       }
+
+      if (rafParallax) return
+      rafParallax = window.requestAnimationFrame(updateParallax)
     }
 
-    window.addEventListener('scroll', onScroll, { passive: true })
+    const onResize = () => {
+      updateParallax()
+    }
 
+    // first paint
+    updateParallax()
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize)
+
+    // marquee rAF loop
     let raf = 0
     let last = performance.now()
 
@@ -71,9 +118,7 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
 
       const baseSpeed = wrapWidth / BASE_DURATION
       const boostSpeed = wrapWidth / BOOST_DURATION
-
-      const speed =
-        baseSpeed + speedBoost.current * (boostSpeed - baseSpeed)
+      const speed = baseSpeed + speedBoost.current * (boostSpeed - baseSpeed)
 
       xPos.current += direction.current * speed * dt
 
@@ -82,7 +127,6 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
 
       el.style.transform = `translate3d(${xPos.current}px, 0, 0)`
 
-      // decay boost
       speedBoost.current *= FRICTION
       if (speedBoost.current < 0.01) {
         speedBoost.current = 0
@@ -96,6 +140,8 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
 
     return () => {
       window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+      if (rafParallax) window.cancelAnimationFrame(rafParallax)
       cancelAnimationFrame(raf)
     }
   }, [])
@@ -103,10 +149,7 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
   if (!items.length) return null
 
   return (
-    <section
-      ref={sectionRef}
-      className="w-full overflow-hidden py-12 select-none"
-    >
+    <section ref={sectionRef} className="w-full overflow-hidden py-12 select-none">
       <div className="relative overflow-hidden">
         <div
           ref={trackRef}
@@ -115,8 +158,18 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
         >
           {items.map((img, idx) => (
             <div key={idx} className="shrink-0 overflow-hidden rounded-2xl bg-black/20">
-              <div className="relative w-[333px] aspect-[313/422]">
-                <Media resource={img} fill className="object-cover" />
+              {/* card frame (clipping) */}
+              <div className="relative w-[333px] aspect-[313/422] overflow-hidden">
+                {/* ✅ parallax layer moves inside the clipped frame */}
+                <div
+                  ref={(el) => {
+                    parallaxRefs.current[idx] = el
+                  }}
+                  className="absolute inset-0 will-change-transform"
+                  style={{ transform: `translate3d(0, 0, 0) scale(${PARALLAX_SCALE})` }}
+                >
+                  <Media resource={img} fill className="object-cover" />
+                </div>
               </div>
             </div>
           ))}
@@ -125,3 +178,5 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
     </section>
   )
 }
+
+export default MarqueeImagesBlock

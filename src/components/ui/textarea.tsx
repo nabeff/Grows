@@ -1,21 +1,26 @@
 import { cn } from '@/utilities/ui'
 import * as React from 'react'
 
-const Textarea: React.FC<
-  {
-    ref?: React.Ref<HTMLTextAreaElement>
-  } & React.TextareaHTMLAttributes<HTMLTextAreaElement>
-> = ({ className, ref, ...props }) => {
+const Textarea = React.forwardRef<
+  HTMLTextAreaElement,
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>
+>(({ className, ...props }, ref) => {
   return (
     <textarea
+      ref={ref}
       className={cn(
-        'flex min-h-[80px] w-full rounded border border-border bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+        'flex min-h-[80px] w-full border-0 border-b border-[#18CB96]/30 bg-transparent px-2 py-4 text-sm',
+        'placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
+        // hover + focus + click states
+        'hover:border-[#18CB96] focus:border-[#18CB96] active:border-[#18CB96]',
+        // remove all default focus UI
+        'outline-none focus:outline-none ring-0 focus:ring-0 focus-visible:ring-0 shadow-none focus:shadow-none',
         className,
       )}
-      ref={ref}
       {...props}
     />
   )
-}
+})
+Textarea.displayName = 'Textarea'
 
 export { Textarea }

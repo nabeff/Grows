@@ -5,6 +5,7 @@ import { CMSLink } from '@/components/Link'
 import { EventCard } from '@/components/events/EventCard'
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import clsx from 'clsx'
+import { TextReveal } from '@/components/TextReveal'
 
 type LiteEvent = {
   id: number | string
@@ -78,15 +79,13 @@ const UpcomingEventsCarousel: React.FC<Props> = ({ title, description, viewAll, 
   return (
     <>
       {/* Header */}
-      <div className="mb-10 flex items-start justify-between gap-6">
+      <div className="mb-10 flex flex-col md:flex-row items-start justify-between gap-4 md:gap-6">
         <div className="flex max-w-4xl flex-col gap-2">
           {title ? (
-            <h2 className="text-2xl md:text-3xl lg:text-6xl uppercase font-bold tracking-tight">
-              {title}
+            <h2 className="text-3xl md:text-4xl lg:text-6xl w-full font-bold">
+              <TextReveal as="span" text={title} />
             </h2>
           ) : null}
-
-          {description ? <p className="text-sm md:text-base text-black/80">{description}</p> : null}
         </div>
 
         <div className="shrink-0 pt-2 flex gap-3 flex-wrap">

@@ -6,6 +6,7 @@ import { CMSLink } from '@/components/Link'
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from '@/components/ui/carousel'
 import type { Media as MediaType } from '@/payload-types'
 import { NewsCard } from '@/components/news/NewsCard'
+import { TextReveal } from '@/components/TextReveal'
 
 const BRAND = '#18CB96'
 const MINT = '#D9F6EE'
@@ -67,17 +68,11 @@ const NewsCarouselClient: React.FC<Props> = ({ titleLeft, titleRight, viewAll, p
   return (
     <section className="container py-12 lg:py-16 text-black">
       {/* Header */}
-      <div className="mb-10 flex items-end justify-between gap-6">
-        <div className="flex items-end gap-6 flex-wrap">
+      <div className="mb-10 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 md:gap-6">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 ">
           {titleLeft ? (
             <h2 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-none">
-              {titleLeft}
-            </h2>
-          ) : null}
-
-          {titleRight ? (
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-none">
-              {titleRight}
+              <TextReveal as="span" text={titleLeft} />
             </h2>
           ) : null}
         </div>

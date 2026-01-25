@@ -31,6 +31,8 @@ import { PostsCarousel } from '@/blocks/PostsCarousel/config'
 import { AboutSplit } from '@/blocks/AboutSplit/config'
 import { MissionText } from '@/blocks/MissionText/config'
 import { TreatmentsAccordion } from '@/blocks/TreatmentsAccordion/config'
+import { ContactSplitBlock } from '@/blocks/ContactSplitBlock/config'
+import { NewsListing } from '@/blocks/NewsListing/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -100,6 +102,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 AboutSplit,
                 MissionText,
                 TreatmentsAccordion,
+                ContactSplitBlock,
+                NewsListing,
               ],
               required: true,
               admin: {

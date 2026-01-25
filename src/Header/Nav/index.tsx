@@ -1,3 +1,4 @@
+// src/Header/Nav.tsx
 'use client'
 
 import React from 'react'
@@ -8,7 +9,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const navItems = data?.navItems || []
 
   return (
-    <nav className="flex items-center gap-8">
+    <nav className="hidden md:flex items-center gap-8">
       {navItems.map(({ link }, i) => (
         <CMSLink key={i} {...link} />
       ))}
