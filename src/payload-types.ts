@@ -1087,19 +1087,13 @@ export interface Event {
   title: string;
   date: string;
   /**
-   * Displayed as “City, Country” on the card bottom-right.
+   * Displayed as "City, Country" on the card bottom-right.
    */
   location: string;
-  link: {
-    type: 'reference' | 'custom';
-    reference?: {
-      relationTo: 'pages';
-      value: string | Page;
-    } | null;
-    url?: string | null;
-    label?: string | null;
-    newTab?: boolean | null;
-  };
+  /**
+   * Upload an image, PDF, or other file for users to download when clicking the event card.
+   */
+  downloadFile?: (string | null) | Media;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1925,15 +1919,7 @@ export interface EventsSelect<T extends boolean = true> {
   title?: T;
   date?: T;
   location?: T;
-  link?:
-    | T
-    | {
-        type?: T;
-        reference?: T;
-        url?: T;
-        label?: T;
-        newTab?: T;
-      };
+  downloadFile?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

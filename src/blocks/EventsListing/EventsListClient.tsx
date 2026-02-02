@@ -22,7 +22,7 @@ type LiteEvent = {
   title: string
   date: string
   location: string
-  link: any
+  downloadFile?: any
 }
 
 const BRAND = '#18CB96'
@@ -148,7 +148,7 @@ export const EventsListClient: React.FC<{
             title={event.title}
             date={event.date}
             location={event.location}
-            link={event.link}
+            downloadFile={event.downloadFile}
           />
         ))}
       </div>

@@ -143,4 +143,8 @@ html[data-theme='light'] {
   .u-underline:hover::after {
     transform: scaleX(1);
   }
+
+  .blacktext h2 , .blacktext strong, .blacktext span{
+    color: black;
+  }
 }

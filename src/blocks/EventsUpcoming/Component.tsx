@@ -15,7 +15,7 @@ export type LiteEvent = {
   title: string
   date: string
   location: string
-  link: any
+  downloadFile?: any
 }
 
 export default async function EventsUpcomingBlock({
@@ -35,7 +35,7 @@ export default async function EventsUpcomingBlock({
       title: true,
       date: true,
       location: true,
-      link: true,
+      downloadFile: true,
     },
   })
 
@@ -48,7 +48,7 @@ export default async function EventsUpcomingBlock({
       title: getText(e.title),
       date: String(e.date),
       location: getText(e.location),
-      link: (e as any).link,
+      downloadFile: (e as any).downloadFile,
     }))
     .filter((e) => getEventStatus(e.date) === 'upcoming')
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())

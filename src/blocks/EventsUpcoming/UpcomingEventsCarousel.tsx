@@ -12,7 +12,7 @@ type LiteEvent = {
   title: string
   date: string
   location: string
-  link: any
+  downloadFile?: any
 }
 
 type CMSLinkProps = React.ComponentProps<typeof CMSLink>
@@ -121,7 +121,7 @@ const UpcomingEventsCarousel: React.FC<Props> = ({ title, description, viewAll, 
                   title={event.title}
                   date={event.date}
                   location={event.location}
-                  link={event.link}
+                  downloadFile={event.downloadFile}
                 />
               </div>
             </CarouselItem>

@@ -70,9 +70,9 @@ export const AboutSplitBlock: React.FC<Props> = ({ image, title, text }) => {
         {/* Right content */}
         <div className="min-w-0 max-w-2xl flex flex-col justify-center">
           {title ? (
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold w-full tracking-tight text-black">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold w-full tracking-tight text-black">
               <TextReveal as="span" text={title} />
-            </h2>
+            </h1>
           ) : null}
 
           {text ? (

@@ -76,7 +76,7 @@ export default async function NewsArticle({ params: paramsPromise }: Args) {
         </div>
 
         {/* title */}
-        <h1 className="mt-4 text-4xl md:text-7xl font-bold text-black ">{post.title}</h1>
+        <h1 className="mt-4 text-3xl md:text-5xl lg:text-7xl font-bold text-black ">{post.title}</h1>
 
         {/* reading time pill */}
         <div className="mt-4">
@@ -97,7 +97,7 @@ export default async function NewsArticle({ params: paramsPromise }: Args) {
         {/* content */}
         <div className="mt-12">
           <RichText
-            className="max-w-[52rem] mx-auto text-black"
+            className="max-w-[52rem] mx-auto !text-black blacktext"
             data={post.content}
             enableGutter={false}
           />
@@ -107,11 +107,22 @@ export default async function NewsArticle({ params: paramsPromise }: Args) {
   )
 }
 
+const SITE_URL = 'https://www.grows.ma'
+
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = '' } = await paramsPromise
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
-  return { title: post?.title ?? 'News' }
+
+  const title = post?.title ? `${post.title} | Grows` : 'Healthcare News & Expert Insights | Grows Morocco'
+
+  return {
+    title,
+    description: post?.meta?.description || 'Read the latest healthcare news and expert insights from Grows Morocco.',
+    alternates: {
+      canonical: `${SITE_URL}/news/${decodedSlug}`,
+    },
+  }
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {

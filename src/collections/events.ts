@@ -26,66 +26,29 @@ export const Events: CollectionConfig = {
       type: 'date',
       required: true,
       admin: {
-        date: { pickerAppearance: 'dayOnly' }, // keeps it “day based”
+        date: { pickerAppearance: 'dayOnly' },
       },
     },
 
-    // location shown bottom-right: "Zurich, Switzerland"
     {
       name: 'location',
       type: 'text',
       required: true,
       localized: true,
       admin: {
-        description: 'Displayed as “City, Country” on the card bottom-right.',
+        description: 'Displayed as "City, Country" on the card bottom-right.',
       },
     },
 
-    // whole card clickable
     {
-      name: 'link',
-      type: 'group',
-      label: 'Link',
-      fields: [
-        {
-          name: 'type',
-          type: 'select',
-          required: true,
-          options: [
-            { label: 'Internal', value: 'reference' },
-            { label: 'External', value: 'custom' },
-          ],
-          defaultValue: 'custom',
-        },
-        {
-          name: 'reference',
-          type: 'relationship',
-          relationTo: ['pages'], // add other collections if needed
-          required: false,
-          admin: {
-            condition: (_, siblingData) => siblingData?.type === 'reference',
-          },
-        },
-        {
-          name: 'url',
-          type: 'text',
-          required: false,
-          admin: {
-            condition: (_, siblingData) => siblingData?.type === 'custom',
-          },
-        },
-        {
-          name: 'label',
-          type: 'text',
-          required: false,
-          localized: true,
-        },
-        {
-          name: 'newTab',
-          type: 'checkbox',
-          defaultValue: false,
-        },
-      ],
+      name: 'downloadFile',
+      type: 'upload',
+      relationTo: 'media',
+      required: false,
+      label: 'Download File',
+      admin: {
+        description: 'Upload an image, PDF, or other file for users to download when clicking the event card.',
+      },
     },
 
     slugField(),
