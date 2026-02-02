@@ -114,7 +114,7 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   const decodedSlug = decodeURIComponent(slug)
   const post = await queryPostBySlug({ slug: decodedSlug })
 
-  const title = post?.title ? `${post.title} | Grows` : 'Healthcare News & Expert Insights | Grows Morocco'
+  const title = post?.meta?.title || post?.title || 'Healthcare News & Expert Insights | Grows Morocco'
 
   return {
     title,
