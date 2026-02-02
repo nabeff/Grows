@@ -56,8 +56,15 @@ export default async function Page() {
   )
 }
 
+const SITE_URL = 'https://www.grows.ma'
+
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: 'Healthcare News & Expert Insights | Grows Morocco',
+    description:
+      'Read the latest press releases and expert insights on healthcare, patient support, and medical innovation in Morocco from the Grows team.',
+    alternates: {
+      canonical: `${SITE_URL}/posts`,
+    },
   }
 }

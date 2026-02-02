@@ -1,0 +1,35 @@
+<svg width="31" height="33" viewBox="0 0 31 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="30.376" height="32.943" rx="15.188" fill="white"/>
+<mask id="mask0_286_31" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="6" y="13" width="12" height="13">
+<path d="M6 13.7026H17.7403V25.443H6V13.7026Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_286_31)">
+<mask id="mask1_286_31" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="3" y="7" width="21" height="21">
+<path d="M3.63867 15.5099L11.7678 7.99658L23.0391 20.189L14.9099 27.7036L3.63867 15.5099Z" fill="white"/>
+</mask>
+<g mask="url(#mask1_286_31)">
+<mask id="mask2_286_31" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="3" y="7" width="21" height="21">
+<path d="M3.63867 15.5099L11.7678 7.99658L23.0391 20.189L14.9099 27.7036L3.63867 15.5099Z" fill="white"/>
+</mask>
+<g mask="url(#mask2_286_31)">
+<path d="M17.5686 14.1509L7.60766 13.708C5.68413 13.6215 5.35917 17.3703 7.6391 17.4319L13.8369 17.5996L13.3638 23.8367C13.2197 25.7353 16.9239 25.9358 17.0288 24.0057L17.5686 14.1509Z" fill="#18CB96"/>
+</g>
+</g>
+</g>
+<mask id="mask3_286_31" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="11" y="8" width="13" height="13">
+<path d="M11.7024 8H23.7782V20.0758H11.7024V8Z" fill="white"/>
+</mask>
+<g mask="url(#mask3_286_31)">
+<mask id="mask4_286_31" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="9" y="2" width="20" height="21">
+<path d="M9.53503 10.0597L17.6642 2.54639L28.9341 14.7401L20.805 22.2534L9.53503 10.0597Z" fill="white"/>
+</mask>
+<g mask="url(#mask4_286_31)">
+<mask id="mask5_286_31" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="9" y="2" width="20" height="21">
+<path d="M9.53503 10.0597L17.6642 2.54639L28.9341 14.7401L20.805 22.2534L9.53503 10.0597Z" fill="white"/>
+</mask>
+<g mask="url(#mask5_286_31)">
+<path d="M23.4651 8.70115L13.5041 8.25827C11.5806 8.1731 11.2557 11.9206 13.5356 11.9822L19.7333 12.1499L19.259 18.3869C19.1149 20.2856 22.8191 20.486 22.9252 18.556L23.4651 8.70115Z" fill="#18CB96"/>
+</g>
+</g>
+</g>
+</svg>

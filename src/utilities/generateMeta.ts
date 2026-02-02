@@ -3,17 +3,16 @@ import type { Metadata } from 'next'
 import type { Media, Page, Post, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
-import { getServerSideURL } from './getURL'
+
+const SITE_URL = 'https://www.grows.ma'
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL()
-
-  let url = serverUrl + '/website-template-OG.webp'
+  let url = SITE_URL + '/rectangle.webp'
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
 
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
+    url = ogUrl ? SITE_URL + ogUrl : SITE_URL + image.url
   }
 
   return url
@@ -26,12 +25,13 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  const title = doc?.meta?.title ? doc?.meta?.title + ' | Grows' : 'Grows'
 
   return {
     description: doc?.meta?.description,
+    alternates: {
+      canonical: SITE_URL + (Array.isArray(doc?.slug) ? '/' + doc?.slug.join('/') : '/'),
+    },
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
       images: ogImage
@@ -42,7 +42,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url: SITE_URL + (Array.isArray(doc?.slug) ? '/' + doc?.slug.join('/') : '/'),
     }),
     title,
   }

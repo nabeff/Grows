@@ -12,9 +12,10 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
-import { getServerSideURL } from '@/utilities/getURL'
 
 import './globals.css'
+
+const SITE_URL = 'https://www.grows.ma'
 
 const saans = localFont({
   src: [
@@ -43,8 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/favico.svg" rel="icon" type="image/svg+xml" />
       </head>
       <body>
         <Providers>
@@ -59,10 +59,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
+  metadataBase: new URL(SITE_URL),
+  title: 'Healthcare Consulting & Patient Support in Morocco | Grows',
+  description:
+    'Grows improves healthcare in Morocco. We offer patient support programs, HEOR studies, and medical events. Partner with us for better patient impact.',
+  alternates: {
+    canonical: SITE_URL,
+  },
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@grows_ma',
   },
 }

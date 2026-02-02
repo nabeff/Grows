@@ -1,16 +1,18 @@
 import type { Metadata } from 'next'
-import { getServerSideURL } from './getURL'
+
+const SITE_URL = 'https://www.grows.ma'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description:
+    'Grows improves healthcare in Morocco. We offer patient support programs, HEOR studies, and medical events. Partner with us for better patient impact.',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${SITE_URL}/rectangle.webp`,
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'Grows',
+  title: 'Healthcare Consulting & Patient Support in Morocco | Grows',
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {
