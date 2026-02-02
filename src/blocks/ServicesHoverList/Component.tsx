@@ -22,7 +22,7 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
         {/* Top title + intro */}
         <div className="max-w-3xl">
           {title && (
-            <h2 className="font-heading text-4xl lg:text-8xl leading-tight text-black font-bold">
+            <h2 className="font-heading text-3xl md:text-5xl lg:text-7xl leading-tight text-black font-bold">
               <TextReveal as="span" text={title} />
             </h2>
           )}
@@ -44,7 +44,7 @@ export const ServicesHoverListBlock: React.FC<ServicesHoverListBlockProps> = ({
                   <div
                     className={cn(
                       'w-full text-left text-black',
-                      'font-heading font-bold text-4xl md:text-5xl lg:text-5xl max-w-2xl leading-[1.05]',
+                      'font-heading font-bold text-2xl md:text-3xl lg:text-4xl max-w-2xl leading-[1.05]',
                       'transition-opacity duration-300',
                       'group-hover:opacity-25',
                     )}

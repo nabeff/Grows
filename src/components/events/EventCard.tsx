@@ -24,7 +24,7 @@ export const EventCard: React.FC<Props> = ({ title, date, location, downloadFile
       </p>
 
       {/* Title */}
-      <h2 className="mt-5 text-2xl md:text-3xl font-bold leading-tight tracking-tight text-black">
+      <h2 className="mt-5 text-xl md:text-2xl font-bold leading-tight tracking-tight text-black">
         <TextReveal as="span" text={title} />
       </h2>
 

@@ -175,12 +175,12 @@ export default function NewsListingClient() {
       <div className={clsx('mt-10 grid gap-6', 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3')}>
         {loading
           ? Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="min-w-0 min-h-[568px]">
+              <div key={i} className="min-w-0 min-h-[400px] md:min-h-[480px] lg:min-h-[568px]">
                 <SkeletonCard />
               </div>
             ))
           : docs.map((p) => (
-              <div key={p.id} className="min-w-0 min-h-[568px]">
+              <div key={p.id} className="min-w-0 min-h-[400px] md:min-h-[480px] lg:min-h-[568px]">
                 <NewsCard
                   className="w-full h-full"
                   href={`/news/${p.slug ?? ''}`}

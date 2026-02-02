@@ -30,8 +30,8 @@ export const AboutSplitBlock: React.FC<Props> = ({ image, title, text }) => {
       const clamped = Math.max(0, Math.min(1, progressed))
 
       // tweak strength here
-      const offset = (clamped - 0.5) * 160 // px
-      imgWrapEl.style.transform = `translate3d(0, ${offset}px, 0) scale(1.08)`
+      const offset = (clamped - 0.5) * 100 // px
+      imgWrapEl.style.transform = `translate3d(0, ${offset}px, 0)`
     }
 
     const onScrollOrResize = () => {
@@ -56,11 +56,11 @@ export const AboutSplitBlock: React.FC<Props> = ({ image, title, text }) => {
         {/* Left image (565/565) */}
         <div className="min-w-0 relative overflow-hidden rounded-[28px] bg-black/[0.03] shadow-[0_10px_30px_rgba(0,0,0,0.10)]">
           <div className="relative aspect-square w-full overflow-hidden">
-            {/* Parallax layer */}
+            {/* Parallax layer - negative inset creates overflow for parallax movement */}
             <div
               ref={imgWrapRef}
-              className="absolute inset-0 will-change-transform"
-              style={{ transform: 'translate3d(0, 0, 0) scale(1.08)' }}
+              className="absolute -inset-[60px] will-change-transform"
+              style={{ transform: 'translate3d(0, 0, 0)' }}
             >
               {img ? <Media resource={img} fill imgClassName="object-cover" /> : null}
             </div>

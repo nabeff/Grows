@@ -45,7 +45,7 @@ export const ContactSplitBlock: React.FC<ContactSplitBlockProps> = (props) => {
 
           {/* RIGHT */}
           <div className="flex flex-col justify-evenly gap-4">
-            <h1 className="font-heading font-bold text-black leading-[0.95] text-6xl sm:text-7xl ]">
+            <h1 className="font-heading font-bold text-black leading-[0.95] text-3xl md:text-5xl lg:text-6xl ">
               {title}
             </h1>
             <div className="">

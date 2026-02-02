@@ -61,7 +61,7 @@ export default async function NewsArticle({ params: paramsPromise }: Args) {
   const hero = (post.heroImage as MediaType) ?? null
 
   return (
-    <article className="pt-24 pb-20">
+    <article className="pt-32 pb-20">
       <PageClient />
 
       <PayloadRedirects disableNotFound url={url} />
@@ -76,11 +76,11 @@ export default async function NewsArticle({ params: paramsPromise }: Args) {
         </div>
 
         {/* title */}
-        <h1 className="mt-4 text-3xl md:text-5xl lg:text-7xl font-bold text-black ">{post.title}</h1>
+        <h1 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-bold text-black ">{post.title}</h1>
 
         {/* reading time pill */}
         <div className="mt-4">
-          <span className="inline-flex rounded-full bg-[#18CB96] px-6 py-2 text-base font-medium text-white">
+          <span className="inline-flex rounded-full bg-[#18CB96]/80 px-6 py-2 text-sm md:text-base font-medium text-white">
             {minutes} min read
           </span>
         </div>
@@ -97,7 +97,7 @@ export default async function NewsArticle({ params: paramsPromise }: Args) {
         {/* content */}
         <div className="mt-12">
           <RichText
-            className="max-w-[52rem] mx-auto !text-black blacktext"
+            className="max-w-[52rem] mx-auto text-[13px] md:text-base !text-black blacktext"
             data={post.content}
             enableGutter={false}
           />

@@ -23,7 +23,7 @@ const DEFAULTS = {
   staggerAmount: 0.25,
   skewY: 7,
   y: 100,
-  lineClassName: 'h-[1.25em]',
+  lineClassName: '',
 } as const
 
 export const TextReveal: React.FC<TextRevealProps> = ({ text, className, as = 'div' }) => {

@@ -28,9 +28,9 @@ export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text 
       const progressed = (vh - rect.top) / (total || 1)
       const clamped = Math.max(0, Math.min(1, progressed))
 
-      const offset = (clamped - 0.5) * 900
+      const offset = (clamped - 0.5) * 200
 
-      imgWrapEl.style.transform = `translate3d(0, ${offset}px, 0) scale(1.08)`
+      imgWrapEl.style.transform = `translate3d(0, ${offset}px, 0)`
     }
 
     const onScrollOrResize = () => {
@@ -53,11 +53,11 @@ export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text 
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden my-10">
       <div className="relative min-h-[420px] md:min-h-[520px] lg:min-h-[620px]">
-        {/* Parallax image layer */}
+        {/* Parallax image layer - negative inset creates overflow for parallax movement */}
         <div
           ref={imgWrapRef}
-          className="absolute inset-0 will-change-transform"
-          style={{ transform: 'translate3d(0, 0, 0) scale(1.08)' }}
+          className="absolute -inset-[120px] will-change-transform"
+          style={{ transform: 'translate3d(0, 0, 0)' }}
         >
           {bg ? <Media resource={bg} fill imgClassName="object-cover" /> : null}
         </div>
@@ -69,7 +69,7 @@ export const ImpactHeroBlock: React.FC<Props> = ({ backgroundImage, title, text 
         <div className="relative container mx-auto flex min-h-[420px] md:min-h-[520px] lg:min-h-[620px] items-center justify-center px-4">
           <div className="text-center text-white max-w-5xl w-full">
             {text ? (
-              <h2 className="text-3xl md:text-3xl lg:text-6xl font-bold leading-tight">
+              <h2 className="text-2xl md:text-3xl lg:text-6xl font-bold leading-tight">
                 <TextReveal as="span" text={text} />
               </h2>
             ) : null}

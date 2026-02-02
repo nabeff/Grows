@@ -107,7 +107,7 @@ export function MobileMenu({ open, onClose, data }: Props) {
                   {...(link as any)}
                   onClick={onClose as any}
                   className={cn(
-                    'text-5xl font-bold leading-tight',
+                    'text-4xl font-bold leading-tight',
                     'text-white hover:text-white/80 transition-colors',
                   )}
                 />
@@ -122,7 +122,7 @@ export function MobileMenu({ open, onClose, data }: Props) {
                   onClick={onClose as any}
                   className={cn(
                     'w-fit inline-flex justify-center',
-                    'rounded-full py-4 text-base font-semibold',
+                    'rounded-full py-2 text-base font-semibold',
                   )}
                 />
               ) : null}

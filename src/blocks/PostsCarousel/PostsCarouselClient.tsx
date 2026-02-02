@@ -99,7 +99,7 @@ const NewsCarouselClient: React.FC<Props> = ({ titleLeft, titleRight, viewAll, p
               {/* Fixed card aspect ratio (421/568) + preferred width (421px) */}
               <div className="w-full flex">
                 <div
-                  className="w-full max-w-[421px] flex"
+                  className="w-full max-w-[421px] h-[400px] md:h-[568px| flex"
                   style={{ aspectRatio: String(CARD_ASPECT) }}
                 >
                   <NewsCard

@@ -159,7 +159,7 @@ export const MarqueeImagesBlock: React.FC<MarqueeImagesBlockProps> = ({ images }
           {items.map((img, idx) => (
             <div key={idx} className="shrink-0 overflow-hidden rounded-2xl bg-black/20">
               {/* card frame (clipping) */}
-              <div className="relative w-[333px] aspect-[313/422] overflow-hidden">
+              <div className="relative w-[233px]  md:w-[333px] aspect-[313/422] overflow-hidden">
                 {/* ✅ parallax layer moves inside the clipped frame */}
                 <div
                   ref={(el) => {

@@ -25,7 +25,7 @@ export async function Footer() {
           <div className="max-w-xl">
             <Link href="/" className="inline-flex items-center">
               {logo ? (
-                <div className="relative w-[360px] max-w-full">
+                <div className="relative  w-[200px] md:w-[360px] max-w-full">
                   <Media resource={logo} imgClassName="h-auto w-full object-contain" />
                 </div>
               ) : null}
@@ -81,7 +81,7 @@ export async function Footer() {
               <div key={idx}>
                 <h4 className="text-xl font-bold">{col.title}</h4>
 
-                <div className="mt-6 flex flex-col gap-3">
+                <div className="mt-6 flex flex-col gap-2">
                   {(col.links || []).map((l, i) => (
                     <CMSLink
                       key={i}
