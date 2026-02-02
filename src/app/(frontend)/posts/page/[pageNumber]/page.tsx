@@ -62,12 +62,17 @@ export default async function Page({ params: paramsPromise }: Args) {
   )
 }
 
+const SITE_URL = 'https://www.grows.ma'
+
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { pageNumber } = await paramsPromise
   return {
     title: `Healthcare News & Expert Insights - Page ${pageNumber} | Grows Morocco`,
     description:
       'Read the latest press releases and expert insights on healthcare, patient support, and medical innovation in Morocco from the Grows team.',
+    alternates: {
+      canonical: `${SITE_URL}/posts/page/${pageNumber}`,
+    },
   }
 }
 

@@ -27,10 +27,14 @@ export const generateMeta = async (args: {
 
   const title = doc?.meta?.title || 'Grows'
 
+  const slug = doc?.slug
+  const canonicalPath = slug && slug !== 'home' ? `/${slug}` : ''
+  const canonicalUrl = SITE_URL + canonicalPath
+
   return {
     description: doc?.meta?.description,
     alternates: {
-      canonical: SITE_URL + (Array.isArray(doc?.slug) ? '/' + doc?.slug.join('/') : '/'),
+      canonical: canonicalUrl,
     },
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
@@ -42,7 +46,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: SITE_URL + (Array.isArray(doc?.slug) ? '/' + doc?.slug.join('/') : '/'),
+      url: canonicalUrl,
     }),
     title,
   }

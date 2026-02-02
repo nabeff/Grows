@@ -81,8 +81,13 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
   )
 }
 
+const SITE_URL = 'https://www.grows.ma'
+
 export function generateMetadata(): Metadata {
   return {
     title: `Grow Search`,
+    alternates: {
+      canonical: `${SITE_URL}/search`,
+    },
   }
 }
