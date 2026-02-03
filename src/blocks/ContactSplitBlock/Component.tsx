@@ -58,9 +58,12 @@ export const ContactSplitBlock: React.FC<ContactSplitBlockProps> = (props) => {
 
             <div className="flex flex-col gap-2">
               {Array.isArray(phones) && phones.length > 0 && (
-                <div className="space-y-1 text-sm text-black/70">
+                <div className="space-y-1 text-base text-black/80 hover:text-black">
                   {phones.map((p, i) => (
-                    <div key={i}>{p?.phone}</div>
+                    <div key={i}>
+                      {p?.label && <span className='text-bold text-black text-lg'>{p.label}: </span>}
+                      {p?.phone}
+                    </div>
                   ))}
                 </div>
               )}

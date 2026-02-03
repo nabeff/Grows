@@ -14,6 +14,7 @@ export async function Footer() {
   const logo = footerData?.logo as MediaType | null
   const columns = footerData?.columns || []
   const social = footerData?.social || []
+  const phones = footerData?.phones || []
   const bottomText = footerData?.bottomText
   const bottomLinks = footerData?.bottomLinks || []
 
@@ -39,6 +40,18 @@ export async function Footer() {
               <p className="mt-10 max-w-md text-base leading-relaxed text-black/80">
                 {footerData.description}
               </p>
+            ) : null}
+
+            {/* PHONES */}
+            {phones.length ? (
+              <div className="mt-10 space-y-1  text-black/80 text-base">
+                {phones.map((p, i) => (
+                  <div key={i}>
+                    {p?.label && <span className='text-black text-lg '>{p.label}: </span>}
+                    {p?.phone}
+                  </div>
+                ))}
+              </div>
             ) : null}
 
             {/* SOCIAL (icon only + clickable) */}

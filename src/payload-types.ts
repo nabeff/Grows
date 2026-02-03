@@ -1037,6 +1037,7 @@ export interface ContactSplitBlock {
   } | null;
   phones?:
     | {
+        label: string;
         phone: string;
         id?: string | null;
       }[]
@@ -1712,6 +1713,7 @@ export interface ContactSplitBlockSelect<T extends boolean = true> {
   phones?:
     | T
     | {
+        label?: T;
         phone?: T;
         id?: T;
       };
@@ -2317,6 +2319,13 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  phones?:
+    | {
+        label: string;
+        phone: string;
+        id?: string | null;
+      }[]
+    | null;
   bottomText?: string | null;
   bottomLinks?:
     | {
@@ -2427,6 +2436,13 @@ export interface FooterSelect<T extends boolean = true> {
               url?: T;
               label?: T;
             };
+        id?: T;
+      };
+  phones?:
+    | T
+    | {
+        label?: T;
+        phone?: T;
         id?: T;
       };
   bottomText?: T;

@@ -68,6 +68,14 @@ export const ContactSplitBlock: Block = {
       type: 'array',
       fields: [
         {
+          name: 'label',
+          type: 'text',
+          required: true,
+          admin: {
+            placeholder: 'e.g. Collaboration, Patient Support',
+          },
+        },
+        {
           name: 'phone',
           type: 'text',
           required: true,
