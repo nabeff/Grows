@@ -21,6 +21,7 @@ import MissionTextBlock from './MissionText/Component'
 import TreatmentsAccordionBlock from './TreatmentsAccordion/Component'
 import { ContactSplitBlock } from './ContactSplitBlock/Component'
 import NewsListingBlock from './NewsListing/Component' // ✅ add
+import { TextMarqueeBlock } from './TextMarquee/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -41,6 +42,7 @@ const blockComponents = {
   treatmentsAccordion: TreatmentsAccordionBlock,
   contactSplitBlock: ContactSplitBlock,
   newsListing: NewsListingBlock, // ✅ add
+  textMarquee: TextMarqueeBlock,
 }
 
 export const RenderBlocks: React.FC<{

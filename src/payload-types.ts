@@ -223,6 +223,7 @@ export interface Page {
     | TreatmentsAccordionBlock
     | ContactSplitBlock
     | NewsListingBlock
+    | TextMarqueeBlock
   )[];
   meta?: {
     title?: string | null;
@@ -1081,6 +1082,23 @@ export interface NewsListingBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextMarqueeBlock".
+ */
+export interface TextMarqueeBlock {
+  logos: {
+    logo: string | Media;
+    id?: string | null;
+  }[];
+  /**
+   * Lower = faster. Example: 20 is faster than 35.
+   */
+  speedSeconds?: number | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textMarquee';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -1428,6 +1446,7 @@ export interface PagesSelect<T extends boolean = true> {
         treatmentsAccordion?: T | TreatmentsAccordionBlockSelect<T>;
         contactSplitBlock?: T | ContactSplitBlockSelect<T>;
         newsListing?: T | NewsListingBlockSelect<T>;
+        textMarquee?: T | TextMarqueeBlockSelect<T>;
       };
   meta?:
     | T
@@ -1742,6 +1761,21 @@ export interface ContactSplitBlockSelect<T extends boolean = true> {
 export interface NewsListingBlockSelect<T extends boolean = true> {
   title?: T;
   text?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextMarqueeBlock_select".
+ */
+export interface TextMarqueeBlockSelect<T extends boolean = true> {
+  logos?:
+    | T
+    | {
+        logo?: T;
+        id?: T;
+      };
+  speedSeconds?: T;
   id?: T;
   blockName?: T;
 }

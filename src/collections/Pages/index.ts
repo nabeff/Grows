@@ -33,6 +33,7 @@ import { MissionText } from '@/blocks/MissionText/config'
 import { TreatmentsAccordion } from '@/blocks/TreatmentsAccordion/config'
 import { ContactSplitBlock } from '@/blocks/ContactSplitBlock/config'
 import { NewsListing } from '@/blocks/NewsListing/config'
+import { TextMarquee } from '@/blocks/TextMarquee/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -104,6 +105,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 TreatmentsAccordion,
                 ContactSplitBlock,
                 NewsListing,
+                TextMarquee,
               ],
               required: true,
               admin: {
