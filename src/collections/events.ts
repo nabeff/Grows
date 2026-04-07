@@ -99,20 +99,9 @@ export const Events: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: false,
-      label: 'Event Image / Flyer',
+      label: 'Hero Image',
       admin: {
-        description: 'Flyer or poster image displayed on the event detail page.',
-      },
-    },
-
-    {
-      name: 'downloadFile',
-      type: 'upload',
-      relationTo: 'media',
-      required: false,
-      label: 'Download File',
-      admin: {
-        description: 'Upload an image, PDF, or other file for users to download when clicking the event card.',
+        description: 'Main image displayed on the event detail page.',
       },
     },
 
