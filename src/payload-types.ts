@@ -1106,13 +1106,52 @@ export interface Event {
   title: string;
   date: string;
   /**
+   * Optional. For multi-day events, set the end date.
+   */
+  endDate?: string | null;
+  startTime?: string | null;
+  endTime?: string | null;
+  timezone?: string | null;
+  eventType?: ('in-person' | 'virtual' | 'hybrid') | null;
+  /**
    * Displayed as "City, Country" on the card bottom-right.
    */
   location: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Flyer or poster image displayed on the event detail page.
+   */
+  eventImage?: (string | null) | Media;
   /**
    * Upload an image, PDF, or other file for users to download when clicking the event card.
    */
   downloadFile?: (string | null) | Media;
+  /**
+   * Add images to the event gallery. Shown on past event pages.
+   */
+  gallery?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
+  hostName?: string | null;
+  hostPhone?: string | null;
+  hostEmail?: string | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1954,8 +1993,24 @@ export interface UsersSelect<T extends boolean = true> {
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
   date?: T;
+  endDate?: T;
+  startTime?: T;
+  endTime?: T;
+  timezone?: T;
+  eventType?: T;
   location?: T;
+  description?: T;
+  eventImage?: T;
   downloadFile?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  hostName?: T;
+  hostPhone?: T;
+  hostEmail?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;

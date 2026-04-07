@@ -17,7 +17,7 @@ type LiteEvent = {
   title: string
   date: string
   location: string
-  downloadFile?: any
+  slug: string
 }
 
 export const EventsListingBlock = async (props: Props) => {
@@ -33,7 +33,7 @@ export const EventsListingBlock = async (props: Props) => {
       title: true,
       date: true,
       location: true,
-      downloadFile: true,
+      slug: true,
     },
   })
 
@@ -45,7 +45,7 @@ export const EventsListingBlock = async (props: Props) => {
     title: getText(e.title),
     date: String(e.date),
     location: getText(e.location),
-    downloadFile: (e as any).downloadFile,
+    slug: getText(e.slug),
   }))
 
   const heroImage = props.heroImage as MediaType | null
