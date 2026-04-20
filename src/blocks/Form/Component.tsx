@@ -17,6 +17,7 @@ export type FormBlockType = {
   enableIntro: boolean
   form: FormType
   introContent?: DefaultTypedEditorState
+  contextFields?: Record<string, string>
 }
 
 export const FormBlock: React.FC<
@@ -26,6 +27,7 @@ export const FormBlock: React.FC<
 > = (props) => {
   const {
     enableIntro,
+    contextFields,
     form: formFromProps,
     form: { id: formID, confirmationMessage, confirmationType, redirect, submitButtonLabel } = {},
     introContent,
@@ -52,10 +54,17 @@ export const FormBlock: React.FC<
       const submitForm = async () => {
         setError(undefined)
 
-        const dataToSend = Object.entries(data).map(([name, value]) => ({
+        const contextEntries = Object.entries(contextFields || {}).map(([name, value]) => ({
           field: name,
           value,
         }))
+        const dataToSend = [
+          ...contextEntries,
+          ...Object.entries(data).map(([name, value]) => ({
+            field: name,
+            value,
+          })),
+        ]
 
         // delay loading indicator by 1s
         loadingTimerID = setTimeout(() => {
@@ -110,7 +119,7 @@ export const FormBlock: React.FC<
 
       void submitForm()
     },
-    [router, formID, redirect, confirmationType],
+    [router, formID, redirect, confirmationType, contextFields],
   )
 
   return (

@@ -197,7 +197,16 @@ export default async function EventDetail({ params: paramsPromise }: Args) {
             {registrationForm && (
               <div className="mt-12">
                 <h2 className="text-lg font-bold text-black mb-4">Register for this event</h2>
-                <FormBlock enableIntro={false} form={registrationForm as never} />
+                <FormBlock
+                  enableIntro={false}
+                  form={registrationForm as never}
+                  contextFields={{
+                    eventTitle: event.title,
+                    eventSlug: event.slug || '',
+                    eventDate: dateLabel,
+                    eventLocation: event.location,
+                  }}
+                />
               </div>
             )}
 

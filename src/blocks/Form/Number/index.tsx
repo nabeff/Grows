@@ -23,7 +23,7 @@ export const Number: React.FC<
         placeholder={placeholder}
         aria-label={label || name}
         aria-required={!!required}
-        className="!bg-white !text-black shadow-sm"
+        className={`!bg-white !text-black shadow-sm ${errors[name] ? '!border-red-500 hover:!border-red-500 focus:!border-red-500' : ''}`}
         {...register(name, { required })}
       />
       {errors[name] && <Error name={name} />}

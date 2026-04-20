@@ -35,7 +35,11 @@ export const Select: React.FC<
             <SelectComponent onValueChange={(val) => onChange(val)} value={controlledValue?.value}>
               <SelectTrigger
                 id={name}
-                className="w-full !h-[56px] !bg-white !text-black text-sm border-0 border-b border-[#18CB96]/30 rounded-none px-2 py-0 shadow-none outline-none focus:outline-none ring-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 hover:border-[#18CB96] focus:border-[#18CB96] data-[placeholder]:!text-muted-foreground data-[placeholder]:!font-normal"
+                className={`w-full !h-[56px] !bg-white !text-black text-sm border-0 border-b rounded-none px-2 py-0 shadow-none outline-none focus:outline-none ring-0 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0 data-[placeholder]:!text-muted-foreground data-[placeholder]:!font-normal ${
+                  errors[name]
+                    ? '!border-red-500 hover:!border-red-500 focus:!border-red-500'
+                    : 'border-[#18CB96]/30 hover:border-[#18CB96] focus:border-[#18CB96]'
+                }`}
                 aria-label={label || name}
                 aria-required={!!required}
               >

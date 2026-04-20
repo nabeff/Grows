@@ -25,7 +25,7 @@ export const Email: React.FC<
         aria-label={label || name}
         aria-required={!!required}
         {...register(name, { pattern: /^\S[^\s@]*@\S+$/, required })}
-        className="!bg-white !text-black shadow-sm"
+        className={`!bg-white !text-black shadow-sm ${errors[name] ? '!border-red-500 hover:!border-red-500 focus:!border-red-500' : ''}`}
       />
 
       {errors[name] && <Error name={name} />}
