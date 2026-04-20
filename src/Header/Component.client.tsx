@@ -106,7 +106,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           'transition-[transform,background-color,backdrop-filter] duration-500 ease-in-out',
           hidden ? '-translate-y-full' : 'translate-y-0',
           headerIsDarkGlass
-            ? 'bg-black/60 backdrop-blur-md border-b border-white/10'
+            ? 'bg-black/85 backdrop-blur-md border-b border-white/10'
             : 'bg-transparent backdrop-blur-0 border-b border-transparent',
         )}
       >

@@ -9,8 +9,9 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import RichText from '@/components/RichText'
 import { Media } from '@/components/Media'
 import { formatEventDate, getEventStatus } from '@/utilities/events'
-import type { Event, Media as MediaType } from '@/payload-types'
+import type { Event, Form, Media as MediaType } from '@/payload-types'
 import { EventGallery } from '@/components/events/EventGallery'
+import { FormBlock } from '@/blocks/Form/Component'
 import PageClient from './page.client'
 import Link from 'next/link'
 
@@ -82,6 +83,15 @@ export default async function EventDetail({ params: paramsPromise }: Args) {
   const galleryItems = (event.gallery || []).filter(
     (item) => item.image && typeof item.image === 'object',
   ) as Array<{ image: MediaType; id?: string | null }>
+
+  let registrationForm: Form | null = null
+  if (status === 'upcoming') {
+    if (event.registrationForm && typeof event.registrationForm === 'object') {
+      registrationForm = event.registrationForm as Form
+    } else {
+      registrationForm = (await queryDefaultRegistrationForm()) as Form | null
+    }
+  }
 
   return (
     <article className="pt-32 pb-20">
@@ -183,6 +193,14 @@ export default async function EventDetail({ params: paramsPromise }: Args) {
               </div>
             )}
 
+            {/* Registration form – inside left column, upcoming events only */}
+            {registrationForm && (
+              <div className="mt-12">
+                <h2 className="text-lg font-bold text-black mb-4">Register for this event</h2>
+                <FormBlock enableIntro={false} form={registrationForm as never} />
+              </div>
+            )}
+
           </div>
 
           {/* RIGHT COLUMN */}
@@ -196,29 +214,34 @@ export default async function EventDetail({ params: paramsPromise }: Args) {
 
             {/* Contact card */}
             {hasContact && (
-              <div className="rounded-2xl border border-black/10 p-6">
-                <h3 className="text-lg font-bold text-black">Contact</h3>
-                <div className="mt-4 divide-y divide-black/5">
+              <div className="rounded-2xl bg-white px-5 py-5 shadow-sm">
+                <h3 className="text-lg font-bold text-black">Questions? Talk to your event host</h3>
+                <div className="mt-3">
                   {event.hostName && (
-                    <div className="flex items-center gap-3 py-3">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18CB96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <div className="flex items-start gap-3 py-2">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18CB96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
                         <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
-                      <span className="text-sm text-black/80">{event.hostName}</span>
+                      <div className="flex flex-col leading-tight">
+                        <span className="text-sm text-black/80">{event.hostName}</span>
+                        {event.hostRole && (
+                          <span className="text-xs text-black/50">{event.hostRole}</span>
+                        )}
+                      </div>
                     </div>
                   )}
                   {event.hostPhone && (
-                    <a href={`tel:${event.hostPhone}`} className="flex items-center gap-3 py-3 group">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18CB96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <a href={`tel:${event.hostPhone}`} className="flex items-center gap-3 py-2 group">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18CB96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                         <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
                       </svg>
                       <span className="text-sm text-black/80 group-hover:text-[#18CB96] transition-colors">{event.hostPhone}</span>
                     </a>
                   )}
                   {event.hostEmail && (
-                    <a href={`mailto:${event.hostEmail}`} className="flex items-center gap-3 py-3 group">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18CB96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <a href={`mailto:${event.hostEmail}`} className="flex items-center gap-3 py-2 group">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#18CB96" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
                         <polyline points="22,6 12,13 2,6" />
                       </svg>
@@ -264,6 +287,17 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
     },
   }
 }
+
+const queryDefaultRegistrationForm = cache(async () => {
+  const payload = await getPayload({ config: configPromise })
+  const result = await payload.find({
+    collection: 'forms',
+    limit: 1,
+    pagination: false,
+    where: { title: { equals: 'Event Registration' } },
+  })
+  return result.docs?.[0] || null
+})
 
 const queryEventBySlug = cache(async ({ slug }: { slug: string }) => {
   const { isEnabled: draft } = await draftMode()

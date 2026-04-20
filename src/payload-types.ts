@@ -1133,13 +1133,9 @@ export interface Event {
     [k: string]: unknown;
   } | null;
   /**
-   * Flyer or poster image displayed on the event detail page.
+   * Main image displayed on the event detail page.
    */
   eventImage?: (string | null) | Media;
-  /**
-   * Upload an image, PDF, or other file for users to download when clicking the event card.
-   */
-  downloadFile?: (string | null) | Media;
   /**
    * Add images to the event gallery. Shown on past event pages.
    */
@@ -1149,7 +1145,15 @@ export interface Event {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Select the form to display on upcoming event pages (e.g. "Event Registration"). Leave empty to hide the form.
+   */
+  registrationForm?: (string | null) | Form;
   hostName?: string | null;
+  /**
+   * e.g. "Event Host", "Programme Lead". Shown below the host name.
+   */
+  hostRole?: string | null;
   hostPhone?: string | null;
   hostEmail?: string | null;
   /**
@@ -2001,14 +2005,15 @@ export interface EventsSelect<T extends boolean = true> {
   location?: T;
   description?: T;
   eventImage?: T;
-  downloadFile?: T;
   gallery?:
     | T
     | {
         image?: T;
         id?: T;
       };
+  registrationForm?: T;
   hostName?: T;
+  hostRole?: T;
   hostPhone?: T;
   hostEmail?: T;
   generateSlug?: T;

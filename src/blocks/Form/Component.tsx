@@ -121,7 +121,11 @@ export const FormBlock: React.FC<
       <div className="">
         <FormProvider {...formMethods}>
           {!isLoading && hasSubmitted && confirmationType === 'message' && (
-            <RichText data={confirmationMessage} />
+            <RichText
+              className="!text-left !text-black [&_*]:!text-black [&_*]:!text-left"
+              data={confirmationMessage}
+              enableGutter={false}
+            />
           )}
           {isLoading && !hasSubmitted && <p>Loading, please wait...</p>}
           {error && <div>{`${error.status || '500'}: ${error.message || ''}`}</div>}

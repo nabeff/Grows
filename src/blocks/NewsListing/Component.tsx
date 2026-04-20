@@ -13,7 +13,7 @@ export const NewsListingBlock: React.FC<Props> = ({ title, text }) => {
   const resolvedText = getText(text)
 
   return (
-    <section className="container py-12 lg:py-16 text-black pt-[140px]">
+    <section className="container pb-12 lg:pb-16 text-black pt-28 md:pt-32">
       {/* Title */}
       {resolvedTitle ? (
         <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-none">

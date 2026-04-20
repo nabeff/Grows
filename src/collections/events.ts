@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
+import { revalidateEvent, revalidateEventDelete } from './revalidateEvent'
 
 export const Events: CollectionConfig = {
   slug: 'events',
@@ -13,6 +14,10 @@ export const Events: CollectionConfig = {
     create: ({ req }) => Boolean(req.user),
     update: ({ req }) => Boolean(req.user),
     delete: ({ req }) => Boolean(req.user),
+  },
+  hooks: {
+    afterChange: [revalidateEvent],
+    afterDelete: [revalidateEventDelete],
   },
   fields: [
     {
@@ -123,6 +128,18 @@ export const Events: CollectionConfig = {
     },
 
     {
+      name: 'registrationForm',
+      type: 'relationship',
+      relationTo: 'forms',
+      required: false,
+      label: 'Registration Form',
+      admin: {
+        description:
+          'Select the form to display on upcoming event pages (e.g. "Event Registration"). Leave empty to hide the form.',
+      },
+    },
+
+    {
       type: 'collapsible',
       label: 'Host / Contact Info',
       fields: [
@@ -131,6 +148,15 @@ export const Events: CollectionConfig = {
           type: 'text',
           required: false,
           label: 'Host Name',
+        },
+        {
+          name: 'hostRole',
+          type: 'text',
+          required: false,
+          label: 'Host Role / Title',
+          admin: {
+            description: 'e.g. "Event Host", "Programme Lead". Shown below the host name.',
+          },
         },
         {
           name: 'hostPhone',
